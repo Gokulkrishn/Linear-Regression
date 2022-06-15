@@ -12,7 +12,7 @@ def home():
 @app.route('/predict',methods=['POST'])
 def predict():
     '''
-    For rendering results on HTML GUI
+    For rendering results on html GUI
     '''
     int_features = [int(x) for x in request.form.values()]
     final_features = [np.array(int_features)]
