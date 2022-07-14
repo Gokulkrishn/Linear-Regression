@@ -6,7 +6,7 @@ from housing.logger import logging
 from housing.exception import HousingException
 
 app = Flask(__name__)
-model = pickle.load(open('model.pkl', 'rb'))
+
 
 @app.route('/')
 def home():
@@ -17,9 +17,9 @@ def home():
         logging.info("We are testing logging module1")
         logging.info(housing.error_message)
         logging.info("We are testing logging module2")
-    return render_template('index.html')
+    return "End to End machine learning pipe line"
 
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True,port=8000)
