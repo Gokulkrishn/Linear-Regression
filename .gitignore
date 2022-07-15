@@ -2,6 +2,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
+saved_models/*
+# C extensions
+*.so
+housing/artifact
 
 # C extensions
 *.so
@@ -107,6 +111,7 @@ celerybeat.pid
 env/
 venv/
 ENV/
+artifact/
 env.bak/
 venv.bak/
 
