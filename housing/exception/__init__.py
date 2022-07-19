@@ -14,7 +14,7 @@ class HousingException(Exception):
         error_detail: Object of sys module    
         """
         _,_,exec_tb = error_detail.exc_info()
-        linenumber = exec_tb.tb_frame.f_lineno
+        linenumber = exec_tb.tb_lineno
         file_name = exec_tb.tb_frame.f_code.co_filename
         error_message = f"Error occured in script: {file_name} at line number {linenumber} error message: [{error_message}]"
 

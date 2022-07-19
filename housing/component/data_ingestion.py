@@ -106,13 +106,13 @@ class DataIngestion:
                 os.makedirs(self.data_ingestion_config.ingested_test_dir,exist_ok=True)    
                 strat_test_set.to_csv(test_file_path,index=False)
 
-            DataIngestionArtifact(train_file_path=train_file_path,
+            data_ingestion_artifact = DataIngestionArtifact(train_file_path=train_file_path,
                                     test_file_path=test_file_path,
                                     is_ingested=True,
                                     message=f"Data Ingestion Completed"
                                  )       
 
-            return DataIngestionArtifact
+            return data_ingestion_artifact
 
         except Exception as e:
             raise HousingException(e,sys) from e
