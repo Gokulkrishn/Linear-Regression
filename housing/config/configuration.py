@@ -1,7 +1,7 @@
 from tkinter import CURRENT
 from housing.entity.config_entity import DataIngestionConfig,DataValidationConfig,DataTransformationConfig,\
                           ModelEvaluationConfig,ModelPusherConfig,ModelTrainingConfig,TrainingPipelineConfig
-from housing.utils.util import read_yaml_path
+from housing.utils.util import read_yaml_file
 from housing.constants import *
 from housing.exception import HousingException
 from housing.logger import logging
@@ -24,7 +24,7 @@ class Configuration:
             'model_evaluation_config': {'model_evaluation_file_name': 'model_evaluation.yaml'},
             'model_pusher_config': {'model_export_dir': 'saved_models'}}        
         '''
-        self.config_info = read_yaml_path(file_path=config_file_path)
+        self.config_info = read_yaml_file(file_path=config_file_path)
         self.training_pipeline_config = self.get_training_pipeline_config()
         self.time_stamp = current_time_stamp
 
@@ -111,7 +111,48 @@ class Configuration:
      
 
     def get_data_transformation_config(self) -> DataTransformationConfig:
-        pass
+        try:
+            artifact_dir = self.training_pipeline_config.artifact_dir
+
+            data_transformed_artifact_dir = os.path.join(artifact_dir,
+                DATA_TRANSFORMATION_ARTIFACT_DIR,
+                self.time_stamp
+            )
+
+            data_transformation_config_info = self.config_info[DATA_TRANSFORMATION_CONFIG_KEY]
+
+            add_bedroom_per_room = data_transformation_config_info[DATA_TRANSFORMATION_ADD_BEDROOM_PER_ROOM_KEY]
+             
+            transformed_train_dir = os.path.join(
+                data_transformed_artifact_dir,
+                data_transformation_config_info[DATA_TRANSFORMATION_DIR_NAME_KEY],
+                data_transformation_config_info[DATA_TRANSFORMATION_TRAIN_DIR_NAME_KEY]
+            )
+
+            transformed_test_dir = os.path.join(
+                data_transformed_artifact_dir,
+                data_transformation_config_info[DATA_TRANSFORMATION_DIR_NAME_KEY],
+                data_transformation_config_info[DATA_TRANSFORMATION_TEST_DIR_NAME_KEY]
+            )
+
+            preprocessed_object_file_path = os.path.join(
+                data_transformed_artifact_dir,
+                data_transformation_config_info[DATA_TRANSFORMATION_PREPROCESSING_DIR_KEY],
+                data_transformation_config_info[DATA_TRANSFORMATION_PREPROCESSED_FILE_NAME_KEY]
+            ) 
+
+            data_transformation_config = DataTransformationConfig(
+                add_bedroom_per_room=add_bedroom_per_room,
+                transformed_train_dir= transformed_train_dir,
+                transformed_test_dir= transformed_test_dir,
+                preprocessed_object_file_path=preprocessed_object_file_path
+            )
+
+            logging.info(f"Data Transformation config {data_transformation_config}")
+
+            return data_transformation_config
+        except Exception as e:
+            raise HousingException(e,sys) from e
 
     def get_model_trainer_config(self) -> ModelTrainingConfig:
         pass

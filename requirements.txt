@@ -12,3 +12,4 @@ pandas>=0.19
 PyYAML
 sklearn
 evidently
+dill

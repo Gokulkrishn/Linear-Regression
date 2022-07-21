@@ -3,6 +3,8 @@ import os
 from datetime import datetime
 from tkinter import CURRENT
 
+from sqlalchemy import NUMERIC
+
 ROOT_DIR = os.getcwd()
 CONFIG_DIR = "config"
 CONFIG_FILE_NAME = "config.yaml"
@@ -47,6 +49,17 @@ DATA_TRANSFORMATION_TRAIN_DIR_NAME_KEY = "transformed_train_dir"
 DATA_TRANSFORMATION_TEST_DIR_NAME_KEY = "transformed_test_dir"
 DATA_TRANSFORMATION_PREPROCESSING_DIR_KEY = "preprocessing_dir"
 DATA_TRANSFORMATION_PREPROCESSED_FILE_NAME_KEY = "preprocessed_object_file_name"
+
+COLUMN_TOTAL_ROOMS = "total_rooms"
+COLUMN_TOTAL_BEDROOM = "total_bedrooms"
+COLUMN_POPULATION = "population"
+COLUMN_HOUSEHOLDS = "households"
+DATASET_SCHEMA_COLUMN_KEY = "columns"
+
+NUMERICAL_COLUMN_KEY ="numerical_columns"
+CATEGORICAL_COLUMN_KEY = "categorical_columns"
+
+TARGET_COLUMN_KEY = "target_column"
 
 # Model Training related variables
 
